@@ -5,7 +5,7 @@ import { useGLTF } from '@react-three/drei'
 const  Casco3d =(props)=> {
   const { nodes, materials } = useGLTF('/casco.gltf')
   return (
-    <group {...props} dispose={null} scale={[0.2, 0.2, 0.2]} position={[2, 0, 3]} >
+    <group {...props} dispose={null} scale={[0.1, 0.1, 0.1]} position={[2, 1, 3]} >
       <mesh geometry={nodes.Object_2.geometry} material={materials['Scene_-_Root']} rotation={[-Math.PI / 2, 0, 0]} />
     </group>
   )

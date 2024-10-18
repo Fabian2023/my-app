@@ -56,12 +56,12 @@ const App = () => {
           <Suspense fallback={null}>
             <Casco3d />
           </Suspense>
-          <OrbitControls
+          {/* <OrbitControls
             enableZoom={true}
             minDistance={10}
             maxDistance={100}
             maxPolarAngle={Math.PI / 2}
-          />
+          /> */}
         </Canvas>
       </div>
     </div>

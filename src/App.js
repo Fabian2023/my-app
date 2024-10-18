@@ -20,6 +20,9 @@ const App = () => {
           width: "100%",
           height: "100vh",
           zIndex: 1,
+          objectFit: "cover", 
+          transform: "scaleX(-1)",
+
         }}
       />
 
@@ -27,7 +30,7 @@ const App = () => {
       <div
         style={{
           width: "100%",
-          height: "80vh",
+          height: "100vh",
           position: "absolute",
           top: 0,
           left: 0,
@@ -35,7 +38,17 @@ const App = () => {
           pointerEvents: "none", // Ignore mouse events on this layer
         }}
       >
-        <Canvas camera={{ zoom: 1, position: [0, 2, 65] }}>
+        <Canvas
+          camera={{ zoom: 1, position: [0, 2, 65] }}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100vh", // Matches the webcam's size
+            zIndex: 2, // Above webcam, but can interact with the scene
+          }}
+        >
           <ambientLight intensity={1.9} />
           <directionalLight position={[5, 5, 5]} intensity={2} />
           <pointLight position={[35, 35, 0]} intensity={0.4} />
@@ -43,7 +56,12 @@ const App = () => {
           <Suspense fallback={null}>
             <Casco3d />
           </Suspense>
-          <OrbitControls />
+          <OrbitControls
+            enableZoom={true}
+            minDistance={10}
+            maxDistance={100}
+            maxPolarAngle={Math.PI / 2}
+          />
         </Canvas>
       </div>
     </div>

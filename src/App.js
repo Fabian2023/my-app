@@ -65,12 +65,15 @@ const App = () => {
   
         // Normalizar las coordenadas
         const normalizedX = (eyebrowX / videoWidth) * 2 - 1; // Normalizar a [-1, 1]
-        const normalizedY = -(eyebrowY / videoHeight) * 2 + 1; // Normalizar a [-1, 1]
+        const normalizedY = -(eyebrowY / videoHeight) * 3.2 + 1; // Normalizar a [-1, 1]
+
+        const { width } = detections.detection.box;
+        const helmetScale = width / videoWidth;
   
         // Ajustar la posición del casco (bajar y mover a la izquierda)
-        const helmetYOffset = 8.0; // Ajusta este valor para cambiar la altura del casco
+        const dynamicYOffset = normalizedY * 10;
         const helmetXOffset = 1.5; // Ajusta este valor para mover el casco a la izquierda
-        setHelmetPosition([normalizedX - helmetXOffset, normalizedY - helmetYOffset, 20]); // 20 en Z para que esté frente al usuario
+        setHelmetPosition([normalizedX - helmetXOffset, dynamicYOffset,25, helmetScale ]);  // 20 en Z para que esté frente al usuario
       }
     }
   }, []);
@@ -86,7 +89,7 @@ const App = () => {
   }, [handleFaceDetection]);
 
   return (
-    <div style={{ width: "100%",left:"-7px", height: "90vh", marginTop: "-8px", position: "relative", overflow: "hidden" }}>
+    <div style={{ width: "105%",left:"-7px", height: "100vh", marginTop: "-8px", position: "relative", overflow: "hidden" }}>
       <Webcam
         ref={webcamRef}
         audio={false}
@@ -105,9 +108,9 @@ const App = () => {
         ref={canvasRef}
         style={{
           position: "absolute",
-          top: -30,
-          right: -260,
-          width: "250%",
+          top: -6,
+          right: -320,
+          width: "280%",
           height: "100vh",
           zIndex: 1,
           transform: "scaleX(-1)",
@@ -135,8 +138,8 @@ const App = () => {
             zIndex: 2,
           }}
         >
-          <ambientLight intensity={1.9} />
-          <directionalLight position={[5, 5, 5]} intensity={2} />
+          <ambientLight intensity={0.2} />
+          <directionalLight position={[5, 5, 5]} intensity={0.8} />
           <pointLight position={[35, 35, 0]} intensity={0.4} />
           <pointLight position={[-35, 35, 0]} intensity={0.4} />
           <Suspense fallback={null}>
